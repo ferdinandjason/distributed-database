@@ -17,4 +17,4 @@ SAVE MYSQL SERVERS TO DISK;
 
 INSERT INTO mysql_users(username, password, default_hostgroup) VALUES ('mybuffetuser', 'mybuffetpassword', 2);
 LOAD MYSQL USERS TO RUNTIME;
-SAVE MYSQL USERS TO DISK;
+SAVE MYSQL USERS TO DISK;   

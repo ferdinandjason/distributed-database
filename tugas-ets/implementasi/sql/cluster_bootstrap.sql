@@ -10,3 +10,6 @@ INSTALL PLUGIN group_replication SONAME 'group_replication.so';
 SET GLOBAL group_replication_bootstrap_group=ON;
 START GROUP_REPLICATION;
 SET GLOBAL group_replication_bootstrap_group=OFF;
+
+CREATE DATABASE my_buffet;
+USE my_buffet;
