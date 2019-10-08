@@ -1,5 +1,6 @@
 ### Tugas ETS Basis Data Terdistribusi
 # Implementasi Infrastruktur Multi-Master Basis Data
+Ferdinand Jason Gondowijoyo (05111640000033)
 
 ## Table of Contents
 - [Implementasi Infrastruktur Multi-Master Basis Data](#implementasi-infrastruktur-multi-master-basis-data)
@@ -25,25 +26,25 @@
 
 ## Desain dan Implementasi Infrastruktur
 1. Desain Infrastruktur Basis Data Terdistribusi
-    - Gambar Infrastruktur
+    - Gambar Infrastruktur\
     ![Gambar Desain Infrastruktur](desain/Desain&#32;Infrastruktur&#32;BDT.png)
     - Server\
     Terdapat 4 Server yang digunakan pada Tugas ETS dengan pembagian IP dan Spesifikasinya sebagai berikut :
         - Server Database
             1. MySQL Server 1
                - OS : `ubuntu-16.04`
-               - RAM : `1024` MB
+               - RAM : `512` MB
                - IP : `10.0.16.34`
             2. MySQL Server 2
                - OS : `ubuntu-16.04`
-               - RAM : `1024` MB
+               - RAM : `512` MB
                - IP : `10.0.16.35`
             3. MySQL Server 3
                - OS : `ubuntu-16.04`
-               - RAM : `1024` MB
+               - RAM : `512` MB
                - IP : `10.0.16.36`
         - Load Balancer
-            1. Load Balancer
+            1. Proxy SQL
                - OS : `ubuntu-16.04`
-               - RAM : `1024` MB
+               - RAM : `512` MB
                - IP : `10.0.16.36`
