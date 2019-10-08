@@ -34,17 +34,17 @@ Ferdinand Jason Gondowijoyo (05111640000033)
             1. MySQL Server 1
                - OS : `ubuntu-16.04`
                - RAM : `512` MB
-               - IP : `10.0.16.34`
+               - IP : `192.168.16.34`
             2. MySQL Server 2
                - OS : `ubuntu-16.04`
                - RAM : `512` MB
-               - IP : `10.0.16.35`
+               - IP : `192.168.16.35`
             3. MySQL Server 3
                - OS : `ubuntu-16.04`
                - RAM : `512` MB
-               - IP : `10.0.16.36`
+               - IP : `192.168.16.36`
         - Load Balancer
             1. Proxy SQL
                - OS : `ubuntu-16.04`
                - RAM : `512` MB
-               - IP : `10.0.16.33`
+               - IP : `192.168.16.33`
