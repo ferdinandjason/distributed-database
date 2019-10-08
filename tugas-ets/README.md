@@ -47,4 +47,4 @@ Ferdinand Jason Gondowijoyo (05111640000033)
             1. Proxy SQL
                - OS : `ubuntu-16.04`
                - RAM : `512` MB
-               - IP : `10.0.16.36`
+               - IP : `10.0.16.33`
