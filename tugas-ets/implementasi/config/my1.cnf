@@ -22,7 +22,7 @@
 
 [mysqld]
 
-# General Replication settings
+# General replication settings
 gtid_mode = ON
 enforce_gtid_consistency = ON
 master_info_repository = TABLE
