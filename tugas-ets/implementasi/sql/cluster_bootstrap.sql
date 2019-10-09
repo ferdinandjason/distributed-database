@@ -12,4 +12,3 @@ START GROUP_REPLICATION;
 SET GLOBAL group_replication_bootstrap_group=OFF;
 
 CREATE DATABASE my_buffet;
-USE my_buffet;

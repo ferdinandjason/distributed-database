@@ -36,6 +36,5 @@ sudo service mysql restart
 
 # Cluster bootstrapping
 sudo mysql -u root -padmin < /vagrant/sql/cluster_bootstrap.sql
-sudo mysql -u root -padmin < /vagrant/sql/my_buffet.sql
 sudo mysql -u root -padmin < /vagrant/sql/addition_to_sys.sql
 sudo mysql -u root -padmin < /vagrant/sql/create_proxysql_user.sql
