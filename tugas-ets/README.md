@@ -30,7 +30,7 @@ Ferdinand Jason Gondowijoyo (05111640000033)
 
 ### Desain Infrastruktur Basis Data Terdistribusi
 1. Gambar Infrastruktur\
-![Gambar Desain Infrastruktur](desain/Desain&#32;Infrastruktur&#32;BDT.png)\
+![Gambar Desain Infrastruktur](desain/Desain&#32;Infrastruktur&#32;BDT.png)
 1. Server\
 Terdapat 4 Server yang digunakan pada Tugas ETS dengan pembagian IP dan Spesifikasinya sebagai berikut :
     - Server Database
@@ -697,21 +697,20 @@ Terdapat 4 Server yang digunakan pada Tugas ETS dengan pembagian IP dan Spesifik
 
 3. Menjalankan Vagrant
 - Setelah membuat `Vagrantfile` serta segala file yang dibutuhkan. maka vagrant virtual box bisa dijalankan dengan
-```bash
-vagrant up
-```
+  ```bash
+  vagrant up
+  ```
 - Setelah menunggu download dan provisining, cek vagrant sudah berjalan dengan baik dengan
-```bash
-vagrant status
-```
-```
-SS Soon
-```
+  ```bash
+  vagrant status
+  ```
+  ![Status Vagrant](img/Vagrant%20Status.PNG)
 - Masuk ke dalam VM Proxy
-```
-vagrant ssh proxy
-```
+  ```
+  vagrant ssh proxy
+  ```
 - Masukkan file proxysql.sql sebagai provisioning tambahan
-```
-mysql -u admin -p -h 127.0.0.1 -P 6032 < /vagrant/proxysql.sql
-```
+  ```
+  mysql -u admin -p -h 127.0.0.1 -P 6032 < /vagrant/sql/proxysql.sql
+  ```
+
