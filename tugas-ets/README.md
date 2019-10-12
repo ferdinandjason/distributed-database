@@ -11,6 +11,7 @@ Ferdinand Jason Gondowijoyo (05111640000033)
     - [Implementasi Infrastruktur Basis Data Terdistribusi](#implementasi-infrastruktur-basis-data-terdistribusi)
   - [Penggunaan Basis Data Terdistribusi dalam Aplikasi](#penggunaan-basis-data-terdistribusi-dalam-aplikasi)
     - [Konfigurasi pada MyBuffet](#konfigurasi-pada-mybuffet)
+    - [MyBuffet](#mybuffet)
   - [Simulasi fail-over](#simulasi-fail-over)
     - [Mematikan salah satu server basis data](#mematikan-salah-satu-server-basis-data)
     - [Mencoba Order Baru pada Aplikasi](#mencoba-order-baru-pada-aplikasi)
@@ -767,11 +768,16 @@ MyBuffet menggunakan framework Laravel, berikut step-by-step dalam mengimplement
    ```bash
    php artisan serve
    ```
-   ![My Buffet](img/My%20Buffer%20Dashboard.PNG)
+
+### MyBuffet
+![My Buffet](img/My%20Buffer%20Dashboard.PNG)
+MyBuffet (Sistem Informasi Penjualan Makanan Hotel)
+
+Merupakan sebuah aplikasi penghubung antara hotel dan pelanggan, makanan disini bukan berasal dari menu biasa namun makanan yang dibuat terlalu banyak oleh hotel terkait sehingga ketika hotel tersebut akan tutup jam operasionalnya.
 
 ## Simulasi fail-over
 ### Mematikan salah satu server basis data
-1. Mematikan pada server database
+1. Mematikan pada server database\
    Pada contoh kali ini, server `db2` akan dimatikan dengan mengetikkan
    ```bash
    vagrant ssh db2
@@ -790,7 +796,7 @@ MyBuffet menggunakan framework Laravel, berikut step-by-step dalam mengimplement
    Berikut Screenshot hasil nya
    ![Vagrant Status DB2](img/Vagrant%20Status%20MySQL%20DB2.PNG)
 
-2. Cek pada ProxySQL
+2. Cek pada ProxySQL\
    Cek pada ProxySQL apakah service `mysql` pada `db2` sudah mati dengan
    ```bash
    vagrant ssh proxy
@@ -801,7 +807,7 @@ MyBuffet menggunakan framework Laravel, berikut step-by-step dalam mengimplement
    SELECT hostgroup_id, hostname, status FROM runtime_mysql_servers;
    ```
 
-   Berikut Screenshot hasilnya
+   Berikut Screenshot hasilnya\
    ![Vagrant Status ProxySQL](img/Vagrant%20ProxySQL%20Status.PNG)
 
 ### Mencoba Order Baru pada Aplikasi
@@ -809,7 +815,7 @@ Melakukan order pada Aplikasi MyBuffet
 ![Order Lagi](img/My%20Buffet%20Order%20Baru.PNG)
 
 ### Menjalankan kembali server pada db2 dan Verifikasi hasil replikasi
-1. Menjalankan kembali server pada db2
+1. Menjalankan kembali server pada db2\
    Masuk ke `db2` dengan mengetikkan
    ```bash
    vagrant ssh db2
@@ -838,7 +844,7 @@ Melakukan order pada Aplikasi MyBuffet
    SELECT hostgroup_id, hostname, status FROM runtime_mysql_servers;
    ```
 
-   Berikut Screenshot hasilnya
+   Berikut Screenshot hasilnya\
    ![Vagrant Status ProxySQL](img/Vagrant%20ProxySQL%20Status2.PNG)
 
 3. Verifikasi hasil replikasi\
