@@ -9,6 +9,12 @@ Ferdinand Jason Gondowijoyo (05111640000033)
   - [Desain dan Implementasi Infrastruktur](#desain-dan-implementasi-infrastruktur)
     - [Desain Infrastruktur Basis Data Terdistribusi](#desain-infrastruktur-basis-data-terdistribusi)
     - [Implementasi Infrastruktur Basis Data Terdistribusi](#implementasi-infrastruktur-basis-data-terdistribusi)
+  - [Penggunaan Basis Data Terdistribusi dalam Aplikasi](#penggunaan-basis-data-terdistribusi-dalam-aplikasi)
+    - [Konfigurasi pada MyBuffet](#konfigurasi-pada-mybuffet)
+  - [Simulasi fail-over](#simulasi-fail-over)
+    - [Mematikan salah satu server basis data](#mematikan-salah-satu-server-basis-data)
+    - [Mencoba Order Baru pada Aplikasi](#mencoba-order-baru-pada-aplikasi)
+    - [Menjalankan kembali server pada db2 dan Verifikasi hasil replikasi](#menjalankan-kembali-server-pada-db2-dan-verifikasi-hasil-replikasi)
 
 
 ## Deskripsi Tugas
@@ -21,10 +27,10 @@ Ferdinand Jason Gondowijoyo (05111640000033)
    - Deskripsi aplikasi yang dipakai (bisa berupa project yang pernah dibuat sebelumnya, web CMS yang tinggal pakai (Wordpress, Joomla, Moodle, dsb), aplikasi desktop dengan backend database, dll).
    - Konfigurasi aplikasi untuk menggunakan basis data terdistribusi yang telah dibuat.
 3. Simulasi fail-over
-   - Lakukan fail-over dengan cara mematikan salah satu server basi data.
+   - Lakukan fail-over dengan cara mematikan salah satu server basis data.
    - Tunjukkan bahwa aplikasi tetap dapat berjalan dengan baik
    - Jalankan kembali server yang sebelumnya mati
-   - Tunjukkan bahwa server yang sebelumnya
+   - Tunjukkan bahwa server yang sebelumnya mati telah kembali normal dan memiliki data yang sama dengan server yang lain.
 
 ## Desain dan Implementasi Infrastruktur
 
@@ -696,21 +702,154 @@ Terdapat 4 Server yang digunakan pada Tugas ETS dengan pembagian IP dan Spesifik
        ```
 
 3. Menjalankan Vagrant
-- Setelah membuat `Vagrantfile` serta segala file yang dibutuhkan. maka vagrant virtual box bisa dijalankan dengan
-  ```bash
-  vagrant up
-  ```
-- Setelah menunggu download dan provisining, cek vagrant sudah berjalan dengan baik dengan
-  ```bash
-  vagrant status
-  ```
-  ![Status Vagrant](img/Vagrant%20Status.PNG)
-- Masuk ke dalam VM Proxy
-  ```
-  vagrant ssh proxy
-  ```
-- Masukkan file proxysql.sql sebagai provisioning tambahan
-  ```
-  mysql -u admin -p -h 127.0.0.1 -P 6032 < /vagrant/sql/proxysql.sql
-  ```
+   - Setelah membuat `Vagrantfile` serta segala file yang dibutuhkan. maka vagrant virtual box bisa dijalankan dengan
+     ```bash
+     vagrant up
+     ```
+     ![Vagrant Up](img/Vagrant%20Up.PNG)
+   - Setelah menunggu download dan provisining, cek vagrant sudah berjalan dengan baik dengan
+     ```bash
+     vagrant status
+     ```
+     ![Status Vagrant](img/Vagrant%20Status.PNG)
+   - Masuk ke dalam VM Proxy
+     ```
+     vagrant ssh proxy
+     ```
+
+     ![Vagrant SSH Proxy](img/Vagrant%20SSH%20Proxy.PNG)\
+
+   - Masukkan file proxysql.sql sebagai provisioning tambahan
+     ```
+     mysql -u admin -p -h 127.0.0.1 -P 6032 < /vagrant/sql/proxysql.sql
+     ```
+
+## Penggunaan Basis Data Terdistribusi dalam Aplikasi
+### Konfigurasi pada MyBuffet
+MyBuffet menggunakan framework Laravel, berikut step-by-step dalam mengimplementasi BDT pada Laravel.
+
+1. Instalasi MyBuffet\
+   Instalasi dilakukan dengan mengetikkan
+   ```bash
+   git clone https://github.com/ferdinandjason/my-buffet.git
+   cd my-buffet
+   composer install
+   cp .env.example .env
+   php artisan key:generate
+   ```
+2. Pengubahan .env\
+   Pada file `.env`, bagian Database diubah menjadi seperi berikut :
+   ```ini
+   DB_CONNECTION=mysql
+   DB_HOST=192.168.16.33
+   DB_PORT=6033
+   DB_DATABASE=my_buffet
+   DB_USERNAME=mybuffetuser
+   DB_PASSWORD=mybuffetpassword
+   ```
+   
+   - `DB_CONNECTION` merupakan tipe dari database yang digunakan dalam tugas ini digunakan `mysql`. 
+   - `DB_HOST` merupakan alamat dari host database mysql dalam tugas ini digunakan alamat dari ProxySQL yaitu `192.68.16.33`
+   - `DB_PORT` merupakan port mysql dalam tugas ini merupakan port dari ProxySQL yaitu `6033`
+   - `DB_DATABASE` merupakan nama database pada database mysql yang dalam tugas ini memiliki nama `my_buffet`
+   - `DB_USERNAME` dan `DB_PASSWORD` merupakan username dan password yang telah memiliki priveledge atas database `my_buffet`
+
+3. Menjalankan DB Migrating dan Seeding\
+   Setelah membuat konfigurasi koneksi, langkah selanjutnya adalah menjalankan migrate dan seeding dengan mengetikan 
+   ```bash
+   php artisan migrate
+   php artisan storage:link
+   php artisan db:seed
+   ```
+   ![PHP Laravel](img/PHP%20Laravel.PNG)
+   ![PHP Laravel2](img/PHP%20Laravel2.PNG)
+4. Menjalankan Aplikasi
+   ```bash
+   php artisan serve
+   ```
+   ![My Buffet](img/My%20Buffer%20Dashboard.PNG)
+
+## Simulasi fail-over
+### Mematikan salah satu server basis data
+1. Mematikan pada server database
+   Pada contoh kali ini, server `db2` akan dimatikan dengan mengetikkan
+   ```bash
+   vagrant ssh db2
+   ```
+   ![Vagrant SSH DB2](img/Vagrant%20SSH%20DB2.PNG)\
+   Kemudian matikan service `mysql`
+   ```bash
+   sudo systemctl stop mysql
+   ```
+   Dan cek statusnya apakah sudah stop atau belum
+   ```bash
+   sudo systemctl status mysql
+   ```
+
+
+   Berikut Screenshot hasil nya
+   ![Vagrant Status DB2](img/Vagrant%20Status%20MySQL%20DB2.PNG)
+
+2. Cek pada ProxySQL
+   Cek pada ProxySQL apakah service `mysql` pada `db2` sudah mati dengan
+   ```bash
+   vagrant ssh proxy
+   mysql -u admin -p -h 127.0.0.1 -P 6032 --prompt='ProxySQLAdmin> '
+   ```
+   Kemudian
+   ```sql
+   SELECT hostgroup_id, hostname, status FROM runtime_mysql_servers;
+   ```
+
+   Berikut Screenshot hasilnya
+   ![Vagrant Status ProxySQL](img/Vagrant%20ProxySQL%20Status.PNG)
+
+### Mencoba Order Baru pada Aplikasi
+Melakukan order pada Aplikasi MyBuffet
+![Order Lagi](img/My%20Buffet%20Order%20Baru.PNG)
+
+### Menjalankan kembali server pada db2 dan Verifikasi hasil replikasi
+1. Menjalankan kembali server pada db2
+   Masuk ke `db2` dengan mengetikkan
+   ```bash
+   vagrant ssh db2
+   ```
+   ![Vagrant SSH DB2](img/Vagrant%20SSH%20DB2.PNG)\
+   Dan menyalakan kembali service `mysql`
+   ```bash
+   sudo systemctl start mysql
+   ```
+   Dan cek statusnya apakah sudah menyala atau belu,
+   ```bash
+   sudo systemctl status mysql
+   ```
+
+   Berikut Screenshot hasilnya
+   ![Vagrant Status MySQL DB2](img/Vagrant%20Status%20MySQL%20DB2%202.PNG)
+
+2. Cek pada ProxySQL apakah sudah kembali Online atau belum
+   ```bash
+   vagrant ssh proxy
+   mysql -u admin -p -h 127.0.0.1 -P 6032 --prompt='ProxySQLAdmin> '
+   ```
+   ![Vagrant SSH Proxy](img/Vagrant%20SSH%20Proxy.PNG)\
+   Kemudian
+   ```sql
+   SELECT hostgroup_id, hostname, status FROM runtime_mysql_servers;
+   ```
+
+   Berikut Screenshot hasilnya
+   ![Vagrant Status ProxySQL](img/Vagrant%20ProxySQL%20Status2.PNG)
+
+3. Verifikasi hasil replikasi\
+   Pada server `db2` dicek apakah data order terakhir telah masuk atau belum dengan
+   ```sql
+   use my_buffet;
+   SELECT * FROM orders;
+   ``` 
+
+   Berikut Screenshot hasilnya
+   ![Vagrant Status MySQL DB2](img/Vagrant%20MySQL%20DB%203.PNG)
+
+   Dapat dilihat bahwa data yang terakhir telah masuk kedalam tabel `orders` pada database `my_buffet` pada server `db2`. Sehingga group replication telah berjalan dengan baik.
 
