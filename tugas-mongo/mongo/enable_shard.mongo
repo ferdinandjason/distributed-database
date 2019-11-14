@@ -1,0 +1,9 @@
+use newsCategory
+sh.enableSharding("newsCategory")
+
+use config
+db.databases.find()
+
+use newsCategory
+db.news.ensureIndex( { _id : "hashed" } )
+sh.shardCollection( "newsCategory.news", { "_id" : "hashed" } )
