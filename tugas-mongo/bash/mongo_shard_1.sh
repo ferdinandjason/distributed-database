@@ -7,7 +7,7 @@ sudo cp /vagrant/config/mongodshardsvr1.conf /etc/mongod.conf
 sudo systemctl restart mongod
 
 # weird
-sleep 5
+# sleep 5
 
 # Add shards
 # mongo mongo-query-router:27017 -u mongo-admin -p --authenticationDatabase admin < /vagrant/mongo/add_shards.mongo

@@ -7,6 +7,12 @@ Ferdinand Jason Gondowijoyo
   - [Implementasi MongoDB Cluster](#implementasi-mongodb-cluster-1)
   - [Konfigurasi MongoDB Cluster](#konfigurasi-mongodb-cluster)
   - [Import Data dan Hasil](#import-data-dan-hasil)
+  - [API](#api)
+    - [Create](#create)
+    - [Read](#read)
+    - [Update](#update)
+    - [Delete](#delete)
+    - [Aggregation](#aggregation)
 
 ## Deskripsi Tugas
 1. Implementasi Cluster MongoDB
@@ -91,9 +97,9 @@ Ferdinand Jason Gondowijoyo
             mongo_query_router.vm.network "private_network", ip: "192.168.2.4"
             
             mongo_query_router.vm.provider "virtualbox" do |vb|
-            vb.name = "mongo-query-router"
-            vb.gui = false
-            vb.memory = "512"
+                vb.name = "mongo-query-router"
+                vb.gui = false
+                vb.memory = "512"
             end
 
             mongo_query_router.vm.provision "shell", path: "bash/mongo_router.sh", privileged: false
@@ -106,9 +112,9 @@ Ferdinand Jason Gondowijoyo
             node.vm.network "private_network", ip: "192.168.2.#{4+i}"
                 
             node.vm.provider "virtualbox" do |vb|
-            vb.name = "mongo-shard-#{i}"
-            vb.gui = false
-            vb.memory = "512"
+                vb.name = "mongo-shard-#{i}"
+                vb.gui = false
+                vb.memory = "512"
             end
 
             node.vm.provision "shell", path: "bash/mongo_shard_#{i}.sh", privileged: false
@@ -230,36 +236,36 @@ Ferdinand Jason Gondowijoyo
 
         # where to write logging data.
         systemLog:
-        destination: file
-        logAppend: true
-        path: /var/log/mongodb/mongod.log
+          destination: file
+          logAppend: true
+          path: /var/log/mongodb/mongod.log
 
         # Where and how to store data.
         storage:
-        dbPath: /var/lib/mongodb
-        journal:
+          dbPath: /var/lib/mongodb
+          journal:
             enabled: true
         #  engine:
         #  wiredTiger:
 
         # how the process runs
         processManagement:
-        timeZoneInfo: /usr/share/zoneinfo
+          timeZoneInfo: /usr/share/zoneinfo
 
         # network interfaces
         net:
-        port: 27019
-        bindIp: 192.168.2.2
+          port: 27019
+          bindIp: 192.168.2.2
 
         #security:
 
         #operationProfiling:
 
         replication:
-        replSetName: configReplSet
+          replSetName: configReplSet
 
         sharding:
-        clusterRole: "configsvr"
+          clusterRole: "configsvr"
         
         ## Enterprise-Only Options
 
@@ -276,26 +282,26 @@ Ferdinand Jason Gondowijoyo
 
         # where to write logging data.
         systemLog:
-        destination: file
-        logAppend: true
-        path: /var/log/mongodb/mongod.log
+          destination: file
+          logAppend: true
+          path: /var/log/mongodb/mongod.log
 
         # Where and how to store data.
         storage:
-        dbPath: /var/lib/mongodb
-        journal:
+          dbPath: /var/lib/mongodb
+          journal:
             enabled: true
         #  engine:
         #  wiredTiger:
 
         # how the process runs
         processManagement:
-        timeZoneInfo: /usr/share/zoneinfo
+          timeZoneInfo: /usr/share/zoneinfo
 
         # network interfaces
         net:
-        port: 27019
-        bindIp: 192.168.2.3
+          port: 27019
+          bindIp: 192.168.2.3
 
 
         #security:
@@ -304,10 +310,10 @@ Ferdinand Jason Gondowijoyo
         #operationProfiling:
 
         replication:
-        replSetName: configReplSet
+          replSetName: configReplSet
 
         sharding:
-        clusterRole: "configsvr"
+          clusterRole: "configsvr"
         
         ## Enterprise-Only Options
 
@@ -320,17 +326,17 @@ Ferdinand Jason Gondowijoyo
         ```ini
         # where to write logging data.
         systemLog:
-        destination: file
-        logAppend: true
-        path: /var/log/mongodb/mongos.log
+          destination: file
+          logAppend: true
+          path: /var/log/mongodb/mongos.log
 
         # network interfaces
         net:
-        port: 27017
-        bindIp: 192.168.2.4
+          port: 27017
+          bindIp: 192.168.2.4
 
         sharding:
-        configDB: configReplSet/mongo-config-1:27019,mongo-config-2:27019
+          configDB: configReplSet/mongo-config-1:27019,mongo-config-2:27019
         ```
    4. File Konfigurasi `mongo-shard-1` : `mongodshardsvr1.conf`
         ```ini
@@ -341,26 +347,26 @@ Ferdinand Jason Gondowijoyo
 
         # where to write logging data.
         systemLog:
-        destination: file
-        logAppend: true
-        path: /var/log/mongodb/mongod.log
+          destination: file
+          logAppend: true
+          path: /var/log/mongodb/mongod.log
 
         # Where and how to store data.
         storage:
-        dbPath: /var/lib/mongodb
-        journal:
+          dbPath: /var/lib/mongodb
+          journal:
             enabled: true
         #  engine:
         #  wiredTiger:
 
         # how the process runs
         processManagement:
-        timeZoneInfo: /usr/share/zoneinfo
+          timeZoneInfo: /usr/share/zoneinfo
 
         # network interfaces
         net:
-        port: 27017
-        bindIp: 192.168.2.5
+          port: 27017
+          bindIp: 192.168.2.5
 
 
         #security:
@@ -387,26 +393,26 @@ Ferdinand Jason Gondowijoyo
 
         # where to write logging data.
         systemLog:
-        destination: file
-        logAppend: true
-        path: /var/log/mongodb/mongod.log
+          destination: file
+          logAppend: true
+          path: /var/log/mongodb/mongod.log
 
         # Where and how to store data.
         storage:
-        dbPath: /var/lib/mongodb
-        journal:
+          dbPath: /var/lib/mongodb
+          journal:
             enabled: true
         #  engine:
         #  wiredTiger:
 
         # how the process runs
         processManagement:
-        timeZoneInfo: /usr/share/zoneinfo
+          timeZoneInfo: /usr/share/zoneinfo
 
         # network interfaces
         net:
-        port: 27017
-        bindIp: 192.168.2.6
+          port: 27017
+          bindIp: 192.168.2.6
 
 
         #security:
@@ -416,7 +422,7 @@ Ferdinand Jason Gondowijoyo
         #replication:
 
         sharding:
-        clusterRole: "shardsvr"
+          clusterRole: "shardsvr"
         
         ## Enterprise-Only Options
 
@@ -433,26 +439,26 @@ Ferdinand Jason Gondowijoyo
 
         # where to write logging data.
         systemLog:
-        destination: file
-        logAppend: true
-        path: /var/log/mongodb/mongod.log
+          destination: file
+          logAppend: true
+          path: /var/log/mongodb/mongod.log
 
         # Where and how to store data.
         storage:
-        dbPath: /var/lib/mongodb
-        journal:
+          dbPath: /var/lib/mongodb
+          journal:
             enabled: true
         #  engine:
         #  wiredTiger:
 
         # how the process runs
         processManagement:
-        timeZoneInfo: /usr/share/zoneinfo
+          timeZoneInfo: /usr/share/zoneinfo
 
         # network interfaces
         net:
-        port: 27017
-        bindIp: 192.168.2.7
+          port: 27017
+          bindIp: 192.168.2.7
 
 
         #security:
@@ -462,7 +468,7 @@ Ferdinand Jason Gondowijoyo
         #replication:
 
         sharding:
-        clusterRole: "shardsvr"
+          clusterRole: "shardsvr"
         
         ## Enterprise-Only Options
 
@@ -514,7 +520,7 @@ Ferdinand Jason Gondowijoyo
     1. Masuk kedalam salah satu server config
         Masuk kedalam server `vagrant-config-1`
         ```bash
-        vagrant ssh vagrant_config_1
+        vagrant ssh mongo_config_1
         ```
         Masuk kedalam mongo
         ```
@@ -534,7 +540,7 @@ Ferdinand Jason Gondowijoyo
     1. Masuk kedalam salah satu server config
         Masuk kedalam server `vagrant-config-1`
         ```bash
-        vagrant ssh vagrant_config_1
+        vagrant ssh mongo_config_1
         ```
         Masuk kedalam mongo
         ```
@@ -553,7 +559,7 @@ Ferdinand Jason Gondowijoyo
     1. Masuk kedalam salah satu server shard
         Masuk kedalam server `vagrant-shard-1`
         ```bash
-        vagrant ssh vagrant_shard_1
+        vagrant ssh mongo_shard_1
         ```
     2. Connect ke MongoDB Query Router `mongo-query-router`
         ```bash
@@ -570,7 +576,7 @@ Ferdinand Jason Gondowijoyo
     1. Masuk kedalam salah satu server shard
         Masuk kedalam server `vagrant-shard-1`
         ```bash
-        vagrant ssh vagrant_shard_1
+        vagrant ssh mongo_shard_1
         ```
     2. Connect ke MongoDB Query Router `mongo-query-router`
         ```bash
@@ -598,3 +604,69 @@ Ferdinand Jason Gondowijoyo
     ![Hasil](img/Hasil.PNG)
 
 
+## API
+Percobaan menggunakan REST API yang dibuat berdasarkan Flask (Python).
+### Create
+Endpoint untuk fungsi ini adalah `POST /news`, berikut hasilnya.
+![C](img/C.PNG)
+
+### Read
+Endpoint untuk fungsi ini adalah `GET /news`, berikut hasilnya.
+![R](img/R.PNG)
+
+### Update
+Endpoint untuk fungsi ini adalah `PUT /news/<id>`, berikut hasilnya.
+![U](img/U.PNG)
+
+### Delete
+Endpoint untuk fungsi ini adalah `DELETE /news/<id>`, berikut hasilnya.
+![D](img/D.PNG)
+
+### Aggregation
+Endpoint untuk fungsi ini adalah `GET /news/facet`, berikut hasilnya.
+![Facet](img/Facet.PNG)
+```json
+[
+    {"_id": "WELLNESS", "count": 17827}, 
+    {"_id": "EDUCATION", "count": 1004}, 
+    {"_id": "MEDIA", "count": 2815}, 
+    {"_id": "MONEY", "count": 1707}, 
+    {"_id": "DIVORCE", "count": 3426}, 
+    {"_id": "HEALTHY LIVING", "count": 6694}, 
+    {"_id": "FOOD & DRINK", "count": 6226}, 
+    {"_id": "LATINO VOICES", "count": 1129}, 
+    {"_id": "FIFTY", "count": 1401}, 
+    {"_id": "BUSINESS", "count": 5937}, 
+    {"_id": "STYLE", "count": 2254}, 
+    {"_id": "STYLE & BEAUTY", "count": 9649},
+    {"_id": "POLITICS", "count": 32739}, 
+    {"_id": "RELIGION", "count": 2556}, 
+    {"_id": "GOOD NEWS", "count": 1398},
+    {"_id": "THE WORLDPOST", "count": 3664}, 
+    {"_id": "QUEER VOICES", "count": 6314}, 
+    {"_id": "WORLD NEWS", "count": 2177}, 
+    {"_id": "BLACK VOICES", "count": 4528}, 
+    {"_id": "SPORTS", "count": 4884}, 
+    {"_id": "COMEDY", "count": 5175}, 
+    {"_id": "WORLDPOST", "count": 2579}, 
+    {"_id": "IMPACT", "count": 3459},
+    {"_id": "ENTERTAINMENT", "count": 16058}, 
+    {"_id": "ARTS & CULTURE", "count": 1339}, 
+    {"_id": "PARENTS", "count": 3955}, 
+    {"_id": "ARTS", "count": 1509}, 
+    {"_id": "COLLEGE", "count": 1144},
+    {"_id": "HOME & LIVING", "count": 4195}, 
+    {"_id": "SCIENCE", "count": 2178}, 
+    {"_id": "PARENTING", "count": 8677}, 
+    {"_id": "TASTE", "count": 2096},
+    {"_id": "CRIME", "count": 3405}, 
+    {"_id": "ENVIRONMENT", "count": 1323}, 
+    {"_id": "TRAVEL", "count": 9887}, 
+    {"_id": "CULTURE & ARTS", "count": 1030}, 
+    {"_id": "WEDDINGS", "count": 3651}, 
+    {"_id": "WEIRD NEWS", "count": 2670}, 
+    {"_id": "WOMEN", "count": 3490}, 
+    {"_id": "TECH", "count": 2082}, 
+    {"_id": "GREEN", "count": 2622}
+]
+```
