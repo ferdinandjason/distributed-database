@@ -597,6 +597,7 @@ Ferdinand Jason Gondowijoyo
 2. Hasil import data
     Pada `mongo` shell di server query ketikkan : 
     ```
+    use news
     db.newsCollection.count()
     db.newsCollection.getShardDistribution()
     ```
