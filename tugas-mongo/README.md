@@ -517,7 +517,7 @@ Ferdinand Jason Gondowijoyo
 
 ## Konfigurasi MongoDB Cluster
 1. Konfigurasi Replica Set
-    1. Masuk kedalam salah satu server config
+    1. Masuk kedalam salah satu server config \
         Masuk kedalam server `vagrant-config-1`
         ```bash
         vagrant ssh mongo_config_1
@@ -526,19 +526,19 @@ Ferdinand Jason Gondowijoyo
         ```
         mongo mongo-config-1:27019
         ```
-    2. Init replica set
+    2. Init replica set \
         Initialisasi replica set dapat dilakukan dengan mengetikkan 
         ```
         rs.initiate( { _id: "configReplSet", configsvr: true, members: [ { _id: 0, host: "mongo-config-1:27019" }, { _id: 1, host: "mongo-config-2:27019" }] } )
         ```
-    3. Check hasil replica set
+    3. Check hasil replica set \
         Pengecekkan replica set dapat dilakukan dengan mengetikkan
         ```
         rs.status()
         ```
 2. Membuat user administrative
-    1. Masuk kedalam salah satu server config
-        Masuk kedalam server `vagrant-config-1`
+    1. Masuk kedalam salah satu server config \
+        Masuk kedalam server `mongo-config-1`
         ```bash
         vagrant ssh mongo_config_1
         ```
@@ -546,7 +546,7 @@ Ferdinand Jason Gondowijoyo
         ```
         mongo mongo-config-1:27019
         ```
-    2. Conect kedalam database `admin`
+    2. Conect kedalam database `admin` \
         Pada `mongo` shell ketikan
         ```
         use admin
@@ -556,7 +556,7 @@ Ferdinand Jason Gondowijoyo
         db.createUser({user: "mongo-admin", pwd: "password", roles:[{role: "root", db: "admin"}]})
         ```
 3. Menambahkan shard kedalam MongoDB Cluster
-    1. Masuk kedalam salah satu server shard
+    1. Masuk kedalam salah satu server shard \
         Masuk kedalam server `vagrant-shard-1`
         ```bash
         vagrant ssh mongo_shard_1
@@ -565,7 +565,7 @@ Ferdinand Jason Gondowijoyo
         ```bash
         mongo mongo-query-router:27017 -u mongo-admin -p --authenticationDatabase admin
         ```
-    3. Menambahkan shard
+    3. Menambahkan shard \
         Dari shell `mongo` ketikkan
         ```bash
         sh.addShard( "mongo-shard-1:27017" )
@@ -573,8 +573,8 @@ Ferdinand Jason Gondowijoyo
         sh.addShard( "mongo-shard-3:27017" )
         ```
 4. Mengaktifkan sharding pada database dan koleksi
-    1. Masuk kedalam salah satu server shard
-        Masuk kedalam server `vagrant-shard-1`
+    1. Masuk kedalam salah satu server shard \
+        Masuk kedalam server `mongo-shard-1`
         ```bash
         vagrant ssh mongo_shard_1
         ```
@@ -582,7 +582,7 @@ Ferdinand Jason Gondowijoyo
         ```bash
         mongo mongo-query-router:27017 -u mongo-admin -p --authenticationDatabase admin
         ```
-    3. Membuat database
+    3. Membuat database \
         Pada shell `mongo` ketikkan
         ```bash
         use news
