@@ -87,5 +87,32 @@ def facet_news():
     resp = dumps(facet_news)
     return resp
 
+@app.route('/news/facet_date', methods=['GET'])
+def facet_date():
+    facet_date = mongo.db.newsCollection.aggregate([
+        {
+            "$group": {
+                "_id":"$date",
+                "count":{"$sum":1}
+            }
+        }
+    ])
+    resp = dumps(facet_date)
+    return resp
+
+@app.route('/news/sum', methods=['GET'])
+def news_sum():
+    news_sum = mongo.db.newsCollection.aggregate([
+        {
+            "$group": {
+                "_id":"_id",
+                "count":{"$sum":1}
+            }
+        }
+    ])
+    resp = dumps(news_sum)
+    return resp
+
+
 if __name__ == "__main__":
     app.run()

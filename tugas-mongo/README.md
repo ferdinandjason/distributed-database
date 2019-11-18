@@ -13,6 +13,8 @@ Ferdinand Jason Gondowijoyo
     - [Update](#update)
     - [Delete](#delete)
     - [Aggregation](#aggregation)
+    - [Aggregation 2](#aggregation-2)
+    - [Aggregation 3](#aggregation-3)
 
 ## Deskripsi Tugas
 1. Implementasi Cluster MongoDB
@@ -671,3 +673,11 @@ Endpoint untuk fungsi ini adalah `GET /news/facet`, berikut hasilnya.
     {"_id": "GREEN", "count": 2622}
 ]
 ```
+
+### Aggregation 2
+Endpoint untuk fungsi ini adalah `GET /news/facet_date`, berikut hasilnya.
+![Facet](img/Facet2.PNG)
+
+### Aggregation 3
+Endpoint untuk fungsi ini adalah `GET /news/sum`, berikut hasilnya.
+![Facet](img/Sum.PNG)
