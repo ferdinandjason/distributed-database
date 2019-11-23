@@ -32,3 +32,7 @@ sudo systemctl status redis
 sudo chmod 777 /etc/redis-sentinel.conf
 sudo systemctl start redisentinel
 sudo systemctl status redisentinel
+
+sudo chmod -R 777 /etc/redis
+sudo systemctl restart redis
+sudo systemctl status redis
