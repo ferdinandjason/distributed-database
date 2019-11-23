@@ -1,0 +1,5 @@
+192.168.16.33 wordpress-redis
+192.168.16.34 wordpress-noredis
+192.168.16.35 redis-master
+192.168.16.36 redis-slave-1
+192.168.16.37 redis-slave-2

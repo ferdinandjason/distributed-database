@@ -78,6 +78,11 @@ def delete_news(id):
 def facet_news():
     facet_news = mongo.db.newsCollection.aggregate([
         {
+            "$match" : {
+                "_id":"$date",
+            }
+        },
+        {
             "$group": {
                 "_id":"$category",
                 "count":{"$sum":1}
@@ -93,7 +98,10 @@ def facet_date():
         {
             "$group": {
                 "_id":"$date",
-                "count":{"$sum":1}
+                "$group" : {
+                    "_id":"$category",
+                    "count":{"$sum":1}
+                }
             }
         }
     ])
