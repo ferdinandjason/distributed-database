@@ -355,7 +355,7 @@ Kemudian apabila di test akan menghasilkan sebagai berikut.
 ## Menginstall Wordpress pada server wordpress
 Tahap instalasi wordpress bisa dilakukan dengan membuka browser dengan url : `<alamat_ip_wordpress>/index.php` kemudian ikuti langkah - langkah yang tertera.
 
-![Wordpress](img\Wordpress%20Dashboard.PNG)
+![Wordpress](img/Wordpress%20Dashboard.PNG)
 
 ### Menginstall Redis Object Cache pada server wordpress1
 1. Login pada `/wp-admin`, kemudian pada bagian `Plugins` cari `Redis Cache Object` kemudian install.
