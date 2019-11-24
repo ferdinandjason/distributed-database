@@ -360,7 +360,7 @@ Tahap instalasi wordpress bisa dilakukan dengan membuka browser dengan url : `<a
 ### Menginstall Redis Object Cache pada server wordpress1
 1. Login pada `/wp-admin`, kemudian pada bagian `Plugins` cari `Redis Cache Object` kemudian install.
    ![Redis Installed](img/Redis%20Cache%20Object%20Wordpress%20Installed.PNG)
-2. Tambahkan Konfigurasi pada `/var/www/html/wp-config.php` pada server `wordpress1`, kemudian tambahkan line berikut
+2. Tambahkans Konfigurasi pada `/var/www/html/wp-config.php` pada server `wordpress1`, kemudian tambahkan line berikut
    ```
    define('WP_REDIS_HOST', '192.168.16.35');
    ```
@@ -373,13 +373,13 @@ Tahap instalasi wordpress bisa dilakukan dengan membuka browser dengan url : `<a
 Langkah selanjutnya adalah pengujian JMeter, sebelum menginstall JMeter pastikan komputer sudah terinstall `JDK` dan `JRE`, serta sudah mendownload JMeter
 
 ### Pengujian 50 Koneksi
-![J50](img\JMeter%2050.PNG)
+![J50](img/JMeter%2050.PNG)
 
 ### Pengujian 133 Koneksi
-![J133](img\JMeter%20133.PNG)
+![J133](img/JMeter%20133.PNG)
 
 ### Pengujian 233 Koneksi
-![J233](img\JMeter%20233.PNG)
+![J233](img/JMeter%20233.PNG)
 
 
 ## Proses Fail Over
@@ -394,10 +394,10 @@ Langkah selanjutnya adalah pengujian JMeter, sebelum menginstall JMeter pastikan
     redis-cli -h 192.168.16.35 -p 5379 DEBUG sleep 60
     ```
 
-    ![Master Down](img\Master%20Down%20Simulation.PNG)
+    ![Master Down](img/Master%20Down%20Simulation.PNG)
 2. Master telah down
 ### Proses Fail Over
 1. Masuk kedalam `redis2` dan `redis3`, kemudian cek siapa master baru yang terpilih dengan mengetikkan `info replication` pada `redis-cli`.
-   ![Redis Cluster Master Down](img\Redis%20Cluster%20Master%20Down.PNG)
+   ![Redis Cluster Master Down](img/Redis%20Cluster%20Master%20Down.PNG)
 
 2. Dapat dilihat bahwa master yang terpilih adalah `redis3`.
