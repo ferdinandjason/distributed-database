@@ -12,6 +12,7 @@ Ferdinand Jason Gondowijoyo
     - [Pengujian 50 Koneksi](#pengujian-50-koneksi)
     - [Pengujian 133 Koneksi](#pengujian-133-koneksi)
     - [Pengujian 233 Koneksi](#pengujian-233-koneksi)
+    - [Kesimpulan dari Pengujian](#kesimpulan-dari-pengujian)
   - [Proses Fail Over](#proses-fail-over)
     - [Simulasi Redis Master Down](#simulasi-redis-master-down)
     - [Proses Fail Over](#proses-fail-over-1)
@@ -362,7 +363,9 @@ Tahap instalasi wordpress bisa dilakukan dengan membuka browser dengan url : `<a
    ![Redis Installed](img/Redis%20Cache%20Object%20Wordpress%20Installed.PNG)
 2. Tambahkans Konfigurasi pada `/var/www/html/wp-config.php` pada server `wordpress1`, kemudian tambahkan line berikut
    ```
-   define('WP_REDIS_HOST', '192.168.16.35');
+    define('FS_METHOD', 'direct');
+    define('WP_REDIS_SENTINEL', 'redis-cluster');
+    define('WP_REDIS_SERVERS', ['tcp://192.168.16.35:26379', 'tcp://192.168.16.36:26379', 'tcp://192.168.16.37:26379']);
    ```
 3. Aktifkan Redis Cache Plugin\
    Kemudian lihat pada bagian `Diagnostics` agar seperti pada Gambar berikut.
@@ -381,6 +384,8 @@ Langkah selanjutnya adalah pengujian JMeter, sebelum menginstall JMeter pastikan
 ### Pengujian 233 Koneksi
 ![J233](img/JMeter%20233.PNG)
 
+### Kesimpulan dari Pengujian
+Berdasarkan data yang telah didapatkan, didapatkan bahwa wordpress Redis Object Cache lebih lambar dari pada yang tidak menggunakan Redis Object Cache, hal ini terjadi kemungkinan karena jumlah permintaan ke server `redis` lebih banyak dari pada jumlah permintaan ke `mysql` sehinga menyebabkan overheat pada server `redis`. Saran kedepannya adalah menambah RAM maupun Storage pada `redis` karena `redis` merupakan in-memory data storage.
 
 ## Proses Fail Over
 ### Simulasi Redis Master Down
