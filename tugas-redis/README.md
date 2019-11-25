@@ -4,6 +4,7 @@ Ferdinand Jason Gondowijoyo
 
 - [Implementasi Redis Cluster](#implementasi-redis-cluster)
   - [Deskripsi Tugas](#deskripsi-tugas)
+  - [Arsitektur Redis Cluster](#arsitektur-redis-cluster)
   - [Implementasi Redis Cluster](#implementasi-redis-cluster-1)
   - [Menjalankan Redis Cluster](#menjalankan-redis-cluster)
   - [Menginstall Wordpress pada server wordpress](#menginstall-wordpress-pada-server-wordpress)
@@ -18,6 +19,8 @@ Ferdinand Jason Gondowijoyo
     - [Proses Fail Over](#proses-fail-over-1)
 
 ## Deskripsi Tugas
+## Arsitektur Redis Cluster
+![Arsitektur](img/BDT&#32;Redis.png)
 ## Implementasi Redis Cluster
 1. Terdapat beberapa server yang digunakan pada Tugas ini, dengan pembagian IP dan spesifikasinya sebagai berikut:
    - Server Wordpress dan MySQL:
