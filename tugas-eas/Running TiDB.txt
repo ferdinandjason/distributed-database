@@ -1,0 +1,100 @@
+Run on PD Server
+
+cd tidb-v3.0-linux-amd64
+./bin/pd-server --name=pd1 \
+                --data-dir=pd \
+                --client-urls="http://192.168.16.33:2379" \
+                --peer-urls="http://192.168.16.33:2380" \
+                --initial-cluster="pd1=http://192.168.16.33:2380,pd2=http://192.168.16.34:2380,pd3=http://192.168.16.35:2380" \
+                --log-file=pd.log &
+
+cd tidb-v3.0-linux-amd64
+./bin/pd-server --name=pd2 \
+                --data-dir=pd \
+                --client-urls="http://192.168.16.34:2379" \
+                --peer-urls="http://192.168.16.34:2380" \
+                --initial-cluster="pd1=http://192.168.16.33:2380,pd2=http://192.168.16.34:2380,pd3=http://192.168.16.35:2380" \
+                --log-file=pd.log &
+
+cd tidb-v3.0-linux-amd64
+./bin/pd-server --name=pd3 \
+                --data-dir=pd \
+                --client-urls="http://192.168.16.35:2379" \
+                --peer-urls="http://192.168.16.35:2380" \
+                --initial-cluster="pd1=http://192.168.16.33:2380,pd2=http://192.168.16.34:2380,pd3=http://192.168.16.35:2380" \
+                --log-file=pd.log &
+
+======================================================
+
+Run on Tikv Server
+
+cd tidb-v3.0-linux-amd64
+./bin/tikv-server --pd="192.168.16.33:2379,192.168.16.34:2379,192.168.16.35:2379" \
+                  --addr="192.168.16.36:20160" \
+                  --data-dir=tikv \
+                  --log-file=tikv.log &
+
+cd tidb-v3.0-linux-amd64
+./bin/tikv-server --pd="192.168.16.33:2379,192.168.16.34:2379,192.168.16.35:2379" \
+                  --addr="192.168.16.37:20160" \
+                  --data-dir=tikv \
+                  --log-file=tikv.log &
+
+cd tidb-v3.0-linux-amd64
+./bin/tikv-server --pd="192.168.16.33:2379,192.168.16.34:2379,192.168.16.35:2379" \
+                  --addr="192.168.16.38:20160" \
+                  --data-dir=tikv \
+                  --log-file=tikv.log &
+
+
+======================================================
+
+Run on TiDB Server
+
+cd tidb-v3.0-linux-amd64
+./bin/tidb-server --store=tikv \
+                  --path="192.168.16.33:2379" \
+                  --log-file=tidb.log &
+
+
+=======================================================
+
+Install Node Exporter
+
+wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
+tar -xzf node_exporter-0.18.1.linux-amd64.tar.gz
+
+cd node_exporter-0.18.1.linux-amd64
+./node_exporter --web.listen-address=":9100" \
+    --log.level="info" &
+
+
+
+======================================================
+
+Install Prometheus dan Grafana
+
+
+wget https://github.com/prometheus/prometheus/releases/download/v2.2.1/prometheus-2.2.1.linux-amd64.tar.gz
+wget https://dl.grafana.com/oss/release/grafana-6.5.1.linux-amd64.tar.gz
+
+tar -xzf prometheus-2.2.1.linux-amd64.tar.gz
+tar -zxf grafana-6.5.1.linux-amd64.tar.gz
+
+addition to prometheus
+
+cd prometheus-2.2.1.linux-amd64
+./prometheus \
+    --config.file="./prometheus.yml" \
+    --web.listen-address=":9090" \
+    --web.external-url="http://192.168.16.33:9090/" \
+    --web.enable-admin-api \
+    --log.level="info" \
+    --storage.tsdb.path="./data.metrics" \
+    --storage.tsdb.retention="15d" &
+
+add grafana.ini
+
+cd grafana-6.5.1
+./bin/grafana-server \
+    --config="./conf/grafana.ini" &
