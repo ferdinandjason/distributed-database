@@ -42,6 +42,8 @@ Ferdinand Jason Gondowijoyo (05111640000033)
 ![Gambar Desain Infrastruktur](img/EAS&#32;BDT.png)
 2. Penjelasan\
 Terdapat 6 Server yang digunakan pada Tugas EAS dengan pembagian IP dan Spesifikasinya sebagai berikut :
+
+
 |          |                     Node 1                    |       Node 2      |       Node 3      |        Node 4       |        Node 5       | Node 6              |
 |:--------:|:---------------------------------------------:|:-----------------:|:-----------------:|:-------------------:|:-------------------:|---------------------|
 | Aplikasi | PD, TiDB, node exporter,  Grafana, Prometheus | PD, node exporter | PD, node exporter | TiKV, node exporter | TiKV, node exporter | TiKV, node exporter |
