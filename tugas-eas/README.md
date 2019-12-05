@@ -155,10 +155,10 @@ Terdapat 6 Server yang digunakan pada Tugas EAS dengan pembagian IP dan Spesifik
 - Masuk kedalam Node 3 dengan perintah `vagrant ssh node3`, jalankan perintah berikut
     ```bash
     cd tidb-v3.0-linux-amd64
-    ./bin/pd-server --name=pd2 \
+    ./bin/pd-server --name=pd3 \
                     --data-dir=pd \
-                    --client-urls="http://192.168.16.34:2379" \
-                    --peer-urls="http://192.168.16.34:2380" \
+                    --client-urls="http://192.168.16.35:2379" \
+                    --peer-urls="http://192.168.16.35:2380" \
                     --initial-cluster="pd1=http://192.168.16.33:2380,pd2=http://192.168.16.34:2380,pd3=http://192.168.16.35:2380" \
                     --log-file=pd.log &
 
@@ -212,6 +212,12 @@ Aplikasi dapat dilihat di [sini](api/rest.py)
 ## Uji Performa Aplikasi
 
 ### Uji menggunakan JMeter
+- 100 
+  ![JMeter100](img/JMeter100.PNG)
+- 500
+  ![JMeter100](img/JMeter500.PNG)
+- 1000
+  ![JMeter100](img/JMeter1000.PNG)
 ### Uji menggunakan Sysbench
 Hasil uji coba `sysbench` dapat dilihat dilihat pada file 
 - 1 PD -> [point_select_run_100_1.log](sysbench/point_select_run_100_1.log)
@@ -308,6 +314,29 @@ Kesimpulan :\
 Semakin banyak PD yang digunakan performa read meningkat, tetapi tidak meningkat secara signifikan.
 
 ### Uji Fail Over
+1. Cek leader pada PD Cluster di node manapun, dengan mengetikkan
+    ```
+    curl http://192.168.16.33:2379/pd/api/v1/members
+    ```
+    Sehingga didapatkan hasil sebagai berikut \
+    ![Leader1](img/Leader1.PNG) \
+
+    Dapat dilihat pada `leader` bahwa leader sekarang berada pada pd2
+2. Masuk kedalam pd2 dengan `vagrant ssh node2` dan matikan pd nya.
+   ```
+   ps -aux | grep pd
+   ```
+   kemudian cari pid dari `pd-server` dan ketikkan
+   ```
+   sudo kil -9 <pid>
+   ```
+3. Kemudian cek leader pada PD CLuster, dengan mengetikkan
+   ```
+   curl http://192.168.16.33:2379/pd/api/v1/members
+   ```
+   Sehingga didapatkan hasil sebagai berikut \
+   ![Leader2](img/Leader2.PNG) \
+   Dapat dilihat pada `leader` bahwa leader sekarang berada pada pd1
 
 ## Monitoring menggunakan Grafana
 ### Menginstall Node Exporter, Prometheus, dan Grafana
