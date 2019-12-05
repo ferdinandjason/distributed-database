@@ -58,6 +58,10 @@ Terdapat 6 Server yang digunakan pada Tugas EAS dengan pembagian IP dan Spesifik
     vagrant init
     ```
     Setelah melakukan perintah tersebut, maka `Vagrantfile` terbuat pada direktori tempat perintah tersebut dijalankan.
+1. Menginstall Plugin `vbguest`
+   ```bash
+   vagrant plugin install vagrant-vbguest
+   ```
 2. Memodifikasi Vagrantfile tersebut menjadi
    ```ruby
     Vagrant.configure("2") do |config|
@@ -465,6 +469,7 @@ Klik logo Grafana, dan klik Data Source, dan klik Add data source, dan tuliskan 
 ### Import Dashboard Grafana
 KLik logo Grafana, dan klik Dashboard, dan Import.
 Klik Upload .json File untuk upload JSON file yang dapat dilihat pada [link](https://github.com/pingcap/tidb-ansible/tree/master/scripts).
+
 
 Pada tugas ini, saya menggunakan tiga dashboard yaitu `pd.json`, `tidb.json`, dan `tikv_details.json`.
 
