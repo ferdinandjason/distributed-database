@@ -17,6 +17,9 @@ Ferdinand Jason Gondowijoyo (05111640000033)
   - [Uji Performa Aplikasi](#uji-performa-aplikasi)
     - [Uji menggunakan JMeter](#uji-menggunakan-jmeter)
     - [Uji menggunakan Sysbench](#uji-menggunakan-sysbench)
+      - [Cara Install](#cara-install)
+      - [Cara Menggunakan](#cara-menggunakan)
+      - [Hasil Uji Coba](#hasil-uji-coba)
     - [Uji Fail Over](#uji-fail-over)
   - [Monitoring menggunakan Grafana](#monitoring-menggunakan-grafana)
     - [Menginstall Node Exporter, Prometheus, dan Grafana](#menginstall-node-exporter-prometheus-dan-grafana)
@@ -219,6 +222,24 @@ Aplikasi dapat dilihat di [sini](api/rest.py)
 - 1000
   ![JMeter100](img/JMeter1000.PNG)
 ### Uji menggunakan Sysbench
+#### Cara Install
+- Install `sysbench` dapat dilakukan dengan mengetikkan
+    ```
+    curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.deb.sh | sudo bash    
+    sudo yum -y install sysbench
+    ```
+- Git clone ke `tidb-bench`, dengan mengetikkan
+    ```
+    git clone https://github.com/pingcap/tidb-bench.git
+    cd tidb-bench/sysbench
+    ```
+
+#### Cara Menggunakan
+- Melakukan config, dengan perintah `nano config`, kemudian ganti mysql host dan db sesuai dengan database `tidb`
+- Melakukan persiapan dapat dilakukan dengan mengetikkan `./run.sh point_select prepare 100`
+- Melakukan sysbench dapat dilakukan dengan mengetikkan `./run.sh point_select run 100`
+  
+#### Hasil Uji Coba
 Hasil uji coba `sysbench` dapat dilihat dilihat pada file 
 - 1 PD -> [point_select_run_100_1.log](sysbench/point_select_run_100_1.log)
     ```
