@@ -225,7 +225,7 @@ Aplikasi dapat dilihat di [sini](api/rest.py)
 #### Cara Install
 - Install `sysbench` dapat dilakukan dengan mengetikkan
     ```
-    curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.deb.sh | sudo bash    
+    curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.rpm.sh | sudo bash    
     sudo yum -y install sysbench
     ```
 - Git clone ke `tidb-bench`, dengan mengetikkan
